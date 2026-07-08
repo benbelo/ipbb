@@ -22,8 +22,12 @@
       </select>
       <select id="filter-location">
         <option value="">Emplacement: tous</option>
-        <option value="on-prem">On-prem</option>
-        <option value="cloud">Cloud</option>
+        <option value="onprem-cachan">On-prem Cachan</option>
+        <option value="onprem-troyes">On-prem Troyes</option>
+        <option value="onprem-dijon">On-prem Dijon</option>
+        <option value="onprem-orleans">On-prem Orléans</option>
+        <option value="onprem-aix">On-prem Aix</option>
+        <option value="cloud-azure">Cloud Azure</option>
       </select>
       <select id="filter-access">
         <option value="">Accès: tous</option>
@@ -39,6 +43,7 @@
       <thead>
         <tr>
           <th data-key="ip">IP</th>
+          <th data-key="vlan">VLAN</th>
           <th data-key="name">Nom</th>
           <th data-key="type">Type</th>
           <th data-key="location">Emplacement</th>
@@ -57,6 +62,9 @@
       <label>IP
         <input name="ip" placeholder="10.0.0.1" required>
       </label>
+      <label>VLAN
+        <input name="vlan" type="number" placeholder="optionnel">
+      </label>
       <label>Nom
         <input name="name" required>
       </label>
@@ -72,8 +80,12 @@
       </label>
       <label>Emplacement
         <select name="location">
-          <option value="on-prem">On-prem</option>
-          <option value="cloud">Cloud</option>
+          <option value="onprem-cachan">On-prem Cachan</option>
+          <option value="onprem-troyes">On-prem Troyes</option>
+          <option value="onprem-dijon">On-prem Dijon</option>
+          <option value="onprem-orleans">On-prem Orléans</option>
+          <option value="onprem-aix">On-prem Aix</option>
+          <option value="cloud-azure">Cloud Azure</option>
         </select>
       </label>
       <label>Accès (séparés par des virgules)

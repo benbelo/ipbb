@@ -18,6 +18,15 @@ const TYPE_LABELS = {
   iot: "IoT",
 };
 
+const LOCATION_LABELS = {
+  "onprem-cachan": "On-prem Cachan",
+  "onprem-troyes": "On-prem Troyes",
+  "onprem-dijon": "On-prem Dijon",
+  "onprem-orleans": "On-prem Orléans",
+  "onprem-aix": "On-prem Aix",
+  "cloud-azure": "Cloud Azure",
+};
+
 function populateAccessFilter() {
   const previous = accessFilter.value;
   const values = new Set();
@@ -47,6 +56,12 @@ function applyFiltersAndSort() {
   });
 
   rows.sort((a, b) => {
+    if (sortKey === "vlan") {
+      const av = a.vlan ?? -Infinity;
+      const bv = b.vlan ?? -Infinity;
+      const cmp = av - bv;
+      return sortDesc ? -cmp : cmp;
+    }
     const av = sortKey === "access" ? a.access.join(",") : a[sortKey];
     const bv = sortKey === "access" ? b.access.join(",") : b[sortKey];
     const cmp = String(av).localeCompare(String(bv));
@@ -60,9 +75,10 @@ function render(rows) {
   tbody.innerHTML = rows.map((h) => `
     <tr>
       <td>${h.ip}</td>
+      <td class="tag">${h.vlan ?? ""}</td>
       <td>${h.name}</td>
       <td class="tag">${TYPE_LABELS[h.type] || h.type}</td>
-      <td class="tag">${h.location === "cloud" ? "Cloud" : "On-prem"}</td>
+      <td class="tag">${LOCATION_LABELS[h.location] || h.location}</td>
       <td>${h.access.map((a) => `<span class="badge">${a}</span>`).join("")}</td>
       <td>
         <button class="edit-btn" data-ip="${h.ip}" type="button">✎</button>
@@ -86,9 +102,10 @@ function openDialog(host) {
   editingIp = host ? host.ip : null;
   dialogTitle.textContent = host ? `Modifier ${host.ip}` : "Ajouter un host";
   form.ip.value = host ? host.ip : "";
+  form.vlan.value = host && host.vlan != null ? host.vlan : "";
   form.name.value = host ? host.name : "";
   form.type.value = host ? host.type : "vm";
-  form.location.value = host ? host.location : "on-prem";
+  form.location.value = host ? host.location : "onprem-cachan";
   form.access.value = host ? host.access.join(", ") : "";
   dialog.showModal();
 }
@@ -125,6 +142,7 @@ form.addEventListener("submit", async (e) => {
 
   const payload = {
     ip: form.ip.value.trim(),
+    vlan: form.vlan.value.trim() ? Number(form.vlan.value) : null,
     name: form.name.value.trim(),
     type: form.type.value,
     location: form.location.value,

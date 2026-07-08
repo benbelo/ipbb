@@ -13,6 +13,8 @@ STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 HEADER = (
     "# Inventaire des hosts. Chaque entrée est déclarative : pas de base de données.\n"
     "# type: vm, bare-metal, firewall, switch, ap ou iot\n"
+    "# location: onprem-cachan, onprem-troyes, onprem-dijon, onprem-orleans, onprem-aix ou cloud-azure\n"
+    "# vlan: optionnel, numérique\n"
     "# access: liste de protocoles/accès possibles (ssh, rdp, web, ...)\n"
 )
 
@@ -21,9 +23,17 @@ IP_RE = re.compile(r"^\d{1,3}(\.\d{1,3}){3}$")
 
 class Host(BaseModel):
     ip: str
+    vlan: int | None = None
     name: str
     type: Literal["vm", "bare-metal", "firewall", "switch", "ap", "iot"]
-    location: Literal["on-prem", "cloud"]
+    location: Literal[
+        "onprem-cachan",
+        "onprem-troyes",
+        "onprem-dijon",
+        "onprem-orleans",
+        "onprem-aix",
+        "cloud-azure",
+    ]
     access: list[str] = []
 
     @field_validator("ip")
@@ -63,7 +73,7 @@ def create_host(host: Host) -> Host:
     hosts = read_hosts()
     if any(h["ip"] == host.ip for h in hosts):
         raise HTTPException(409, f"Un host existe déjà avec l'IP {host.ip}")
-    hosts.append(host.model_dump())
+    hosts.append(host.model_dump(exclude_none=True))
     write_hosts(hosts)
     return host
 
@@ -76,7 +86,7 @@ def update_host(ip: str, host: Host) -> Host:
         raise HTTPException(404, f"Aucun host avec l'IP {ip}")
     if host.ip != ip and any(h["ip"] == host.ip for h in hosts):
         raise HTTPException(409, f"Un host existe déjà avec l'IP {host.ip}")
-    hosts[idx] = host.model_dump()
+    hosts[idx] = host.model_dump(exclude_none=True)
     write_hosts(hosts)
     return host
 

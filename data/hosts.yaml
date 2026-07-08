@@ -1,38 +1,44 @@
 # Inventaire des hosts. Chaque entrée est déclarative : pas de base de données.
 # type: vm, bare-metal, firewall, switch, ap ou iot
+# location: onprem-cachan, onprem-troyes, onprem-dijon, onprem-orleans, onprem-aix ou cloud-azure
+# vlan: optionnel, numérique
 # access: liste de protocoles/accès possibles (ssh, rdp, web, ...)
 - ip: 10.0.0.1
+  vlan: 1
   name: fw-edge01
   type: firewall
-  location: on-prem
+  location: onprem-cachan
   access: [ssh, web]
 
 - ip: 10.0.0.10
+  vlan: 20
   name: srv-web01
   type: vm
-  location: on-prem
+  location: onprem-cachan
   access: [ssh, web]
 
 - ip: 10.0.0.11
   name: srv-app01
   type: vm
-  location: on-prem
+  location: cloud-azure
   access: [ssh]
 
 - ip: 10.0.0.20
+  vlan: 10
   name: sw-core01
   type: switch
-  location: on-prem
+  location: onprem-cachan
   access: [web, ssh]
-
-- ip: 10.0.0.30
-  name: ap-etage1
-  type: ap
-  location: on-prem
-  access: [web]
 
 - ip: 51.210.0.5
   name: srv-cloud01
   type: vm
-  location: cloud
+  location: cloud-azure
   access: [ssh, rdp]
+
+- ip: 172.16.1.5
+  vlan: 20
+  name: AD3
+  type: vm
+  location: onprem-cachan
+  access: [rdp]
