@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ipbb</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>ipbb</h1>
+    <div class="toolbar">
+      <input type="search" id="search" placeholder="Rechercher (nom, IP)...">
+      <select id="filter-type">
+        <option value="">Type: tous</option>
+        <option value="physical">Physique</option>
+        <option value="virtual">Virtuel</option>
+      </select>
+      <select id="filter-location">
+        <option value="">Emplacement: tous</option>
+        <option value="on-prem">On-prem</option>
+        <option value="cloud">Cloud</option>
+      </select>
+      <select id="filter-access">
+        <option value="">Accès: tous</option>
+      </select>
+      <span id="count" class="count"></span>
+    </div>
+  </header>
+
+  <main>
+    <table id="hosts-table">
+      <thead>
+        <tr>
+          <th data-key="ip">IP</th>
+          <th data-key="name">Nom</th>
+          <th data-key="type">Type</th>
+          <th data-key="location">Emplacement</th>
+          <th data-key="access">Accès</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
