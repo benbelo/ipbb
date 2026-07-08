@@ -16,7 +16,7 @@ Puis ouvrir http://localhost:8000.
 
 ```bash
 docker build -t ipbb .
-docker run -p 8000:8000 -v $(pwd)/data:/app/data:ro ipbb
+docker run -p 8000:8000 -v $(pwd)/data:/app/data ipbb
 ```
 
 Ou avec `docker-compose.yml` (pensez à créer le réseau externe `traefik` si besoin :

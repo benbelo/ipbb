@@ -3,7 +3,7 @@ services:
     build: .
     restart: unless-stopped
     volumes:
-      - ./data:/app/data:ro
+      - ./data:/app/data
     # Décommenter pour exposer directement sans Traefik :
     # ports:
     #   - "8000:8000"

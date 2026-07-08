@@ -25,6 +25,7 @@
         <option value="">Accès: tous</option>
       </select>
       <span id="count" class="count"></span>
+      <button id="add-host" type="button">+ Ajouter</button>
     </div>
   </header>
 
@@ -37,11 +38,47 @@
           <th data-key="type">Type</th>
           <th data-key="location">Emplacement</th>
           <th data-key="access">Accès</th>
+          <th></th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </main>
+
+  <dialog id="host-dialog">
+    <form id="host-form">
+      <h2 id="dialog-title">Ajouter un host</h2>
+
+      <label>IP
+        <input name="ip" placeholder="10.0.0.1" required>
+      </label>
+      <label>Nom
+        <input name="name" required>
+      </label>
+      <label>Type
+        <select name="type">
+          <option value="virtual">Virtuel</option>
+          <option value="physical">Physique</option>
+        </select>
+      </label>
+      <label>Emplacement
+        <select name="location">
+          <option value="on-prem">On-prem</option>
+          <option value="cloud">Cloud</option>
+        </select>
+      </label>
+      <label>Accès (séparés par des virgules)
+        <input name="access" placeholder="ssh, rdp, web">
+      </label>
+
+      <p class="error" id="dialog-error"></p>
+
+      <div class="dialog-actions">
+        <button type="button" id="dialog-cancel">Annuler</button>
+        <button type="submit">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
 
   <script src="/app.js"></script>
 </body>
