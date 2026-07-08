@@ -7,6 +7,15 @@
   --accent: #5b8cff;
 }
 
+:root[data-theme="light"] {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --border: #dde1e8;
+  --text: #1c1f26;
+  --muted: #6b7280;
+  --accent: #3b6fe0;
+}
+
 * { box-sizing: border-box; }
 
 body {

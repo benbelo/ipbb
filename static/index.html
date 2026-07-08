@@ -13,8 +13,10 @@
       <input type="search" id="search" placeholder="Rechercher (nom, IP)...">
       <select id="filter-type">
         <option value="">Type: tous</option>
-        <option value="physical">Physique</option>
-        <option value="virtual">Virtuel</option>
+        <option value="server-physical">Serveur physique</option>
+        <option value="server-virtual">Serveur virtuel</option>
+        <option value="network-physical">Réseau physique</option>
+        <option value="network-virtual">Réseau virtuel</option>
       </select>
       <select id="filter-location">
         <option value="">Emplacement: tous</option>
@@ -25,6 +27,7 @@
         <option value="">Accès: tous</option>
       </select>
       <span id="count" class="count"></span>
+      <button id="theme-toggle" type="button" title="Changer de thème">🌙</button>
       <button id="add-host" type="button">+ Ajouter</button>
     </div>
   </header>
@@ -57,8 +60,10 @@
       </label>
       <label>Type
         <select name="type">
-          <option value="virtual">Virtuel</option>
-          <option value="physical">Physique</option>
+          <option value="server-physical">Serveur physique</option>
+          <option value="server-virtual">Serveur virtuel</option>
+          <option value="network-physical">Réseau physique</option>
+          <option value="network-virtual">Réseau virtuel</option>
         </select>
       </label>
       <label>Emplacement

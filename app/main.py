@@ -12,6 +12,7 @@ STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
 HEADER = (
     "# Inventaire des hosts. Chaque entrée est déclarative : pas de base de données.\n"
+    "# type: server-physical, server-virtual, network-physical ou network-virtual\n"
     "# access: liste de protocoles/accès possibles (ssh, rdp, web, ...)\n"
 )
 
@@ -21,7 +22,7 @@ IP_RE = re.compile(r"^\d{1,3}(\.\d{1,3}){3}$")
 class Host(BaseModel):
     ip: str
     name: str
-    type: Literal["physical", "virtual"]
+    type: Literal["server-physical", "server-virtual", "network-physical", "network-virtual"]
     location: Literal["on-prem", "cloud"]
     access: list[str] = []
 

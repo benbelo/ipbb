@@ -9,6 +9,13 @@ const locationFilter = document.getElementById("filter-location");
 const accessFilter = document.getElementById("filter-access");
 const countEl = document.getElementById("count");
 
+const TYPE_LABELS = {
+  "server-physical": "Serveur physique",
+  "server-virtual": "Serveur virtuel",
+  "network-physical": "Réseau physique",
+  "network-virtual": "Réseau virtuel",
+};
+
 function populateAccessFilter() {
   const previous = accessFilter.value;
   const values = new Set();
@@ -52,7 +59,7 @@ function render(rows) {
     <tr>
       <td>${h.ip}</td>
       <td>${h.name}</td>
-      <td class="tag">${h.type === "virtual" ? "Virtuel" : "Physique"}</td>
+      <td class="tag">${TYPE_LABELS[h.type] || h.type}</td>
       <td class="tag">${h.location === "cloud" ? "Cloud" : "On-prem"}</td>
       <td>${h.access.map((a) => `<span class="badge">${a}</span>`).join("")}</td>
       <td>
@@ -78,7 +85,7 @@ function openDialog(host) {
   dialogTitle.textContent = host ? `Modifier ${host.ip}` : "Ajouter un host";
   form.ip.value = host ? host.ip : "";
   form.name.value = host ? host.name : "";
-  form.type.value = host ? host.type : "virtual";
+  form.type.value = host ? host.type : "server-virtual";
   form.location.value = host ? host.location : "on-prem";
   form.access.value = host ? host.access.join(", ") : "";
   dialog.showModal();
@@ -166,6 +173,23 @@ document.querySelectorAll("th[data-key]").forEach((th) => {
 
 [searchInput, typeFilter, locationFilter, accessFilter].forEach((el) => {
   el.addEventListener("input", applyFiltersAndSort);
+});
+
+// --- Thème ---
+
+const themeToggle = document.getElementById("theme-toggle");
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeToggle.textContent = theme === "dark" ? "🌙" : "☀️";
+}
+
+applyTheme(localStorage.getItem("ipbb-theme") || "dark");
+
+themeToggle.addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  localStorage.setItem("ipbb-theme", next);
+  applyTheme(next);
 });
 
 fetch("/api/hosts")
