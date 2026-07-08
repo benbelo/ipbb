@@ -10,10 +10,12 @@ const accessFilter = document.getElementById("filter-access");
 const countEl = document.getElementById("count");
 
 const TYPE_LABELS = {
-  "server-physical": "Serveur physique",
-  "server-virtual": "Serveur virtuel",
-  "network-physical": "Réseau physique",
-  "network-virtual": "Réseau virtuel",
+  vm: "VM",
+  "bare-metal": "Bare-metal",
+  firewall: "Firewall",
+  switch: "Switch",
+  ap: "AP",
+  iot: "IoT",
 };
 
 function populateAccessFilter() {
@@ -85,7 +87,7 @@ function openDialog(host) {
   dialogTitle.textContent = host ? `Modifier ${host.ip}` : "Ajouter un host";
   form.ip.value = host ? host.ip : "";
   form.name.value = host ? host.name : "";
-  form.type.value = host ? host.type : "server-virtual";
+  form.type.value = host ? host.type : "vm";
   form.location.value = host ? host.location : "on-prem";
   form.access.value = host ? host.access.join(", ") : "";
   dialog.showModal();

@@ -121,9 +121,10 @@ button {
 
 button:hover { border-color: var(--accent); }
 
-.edit-btn {
+.edit-btn, .delete-btn, #theme-toggle {
   padding: 0.15rem 0.5rem;
   font-size: 0.9rem;
+  line-height: 1;
 }
 
 dialog {

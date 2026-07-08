@@ -1,38 +1,38 @@
 # Inventaire des hosts. Chaque entrée est déclarative : pas de base de données.
-# type: server-physical, server-virtual, network-physical ou network-virtual
+# type: vm, bare-metal, firewall, switch, ap ou iot
 # access: liste de protocoles/accès possibles (ssh, rdp, web, ...)
 - ip: 10.0.0.1
   name: fw-edge01
-  type: network-physical
+  type: firewall
   location: on-prem
   access: [ssh, web]
 
 - ip: 10.0.0.10
   name: srv-web01
-  type: server-virtual
+  type: vm
   location: on-prem
   access: [ssh, web]
 
 - ip: 10.0.0.11
   name: srv-app01
-  type: server-virtual
+  type: vm
   location: on-prem
   access: [ssh]
 
 - ip: 10.0.0.20
   name: sw-core01
-  type: network-physical
+  type: switch
   location: on-prem
   access: [web, ssh]
 
 - ip: 10.0.0.30
   name: ap-etage1
-  type: network-physical
+  type: ap
   location: on-prem
   access: [web]
 
 - ip: 51.210.0.5
   name: srv-cloud01
-  type: server-virtual
+  type: vm
   location: cloud
   access: [ssh, rdp]
