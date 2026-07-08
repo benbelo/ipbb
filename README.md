@@ -19,8 +19,11 @@ docker build -t ipbb .
 docker run -p 8000:8000 -v $(pwd)/data:/app/data ipbb
 ```
 
-Ou avec `docker-compose.yml` (pensez à créer le réseau externe `traefik` si besoin :
-`docker network create traefik`).
+Ou avec `docker-compose.yml` (expose le port 8000 sur l'hôte, à brancher sur un Traefik externe si besoin) :
+
+```bash
+docker compose up -d --build
+```
 
 ## Éditer l'inventaire
 

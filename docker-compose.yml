@@ -4,16 +4,5 @@ services:
     restart: unless-stopped
     volumes:
       - ./data:/app/data
-    # Décommenter pour exposer directement sans Traefik :
-    # ports:
-    #   - "8000:8000"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ipbb.rule=Host(`ipbb.example.com`)"
-      - "traefik.http.services.ipbb.loadbalancer.server.port=8000"
-    networks:
-      - traefik
-
-networks:
-  traefik:
-    external: true
+    ports:
+      - "8000:8000"
