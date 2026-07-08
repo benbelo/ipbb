@@ -109,7 +109,7 @@ tbody tr:hover { background: var(--surface); }
   color: var(--muted);
 }
 
-button {
+button, #export-csv {
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text);
@@ -117,9 +117,11 @@ button {
   border-radius: 6px;
   font-size: 0.9rem;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
-button:hover { border-color: var(--accent); }
+button:hover, #export-csv:hover { border-color: var(--accent); }
 
 .edit-btn, .delete-btn, #theme-toggle {
   padding: 0.15rem 0.5rem;

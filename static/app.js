@@ -212,6 +212,36 @@ themeToggle.addEventListener("click", () => {
   applyTheme(next);
 });
 
+// --- Import CSV ---
+
+const importBtn = document.getElementById("import-csv");
+const importInput = document.getElementById("import-csv-input");
+
+importBtn.addEventListener("click", () => importInput.click());
+
+importInput.addEventListener("change", async () => {
+  const file = importInput.files[0];
+  importInput.value = "";
+  if (!file) return;
+
+  if (!confirm("Importer ce fichier remplacera tous les hosts existants. Continuer ?")) return;
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch("/api/hosts/import", { method: "POST", body: formData });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    alert(err.detail || "Erreur lors de l'import.");
+    return;
+  }
+
+  hosts = await res.json();
+  populateAccessFilter();
+  applyFiltersAndSort();
+});
+
 fetch("/api/hosts")
   .then((res) => res.json())
   .then((data) => {

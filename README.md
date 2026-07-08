@@ -33,3 +33,9 @@ Utiliser l'UI directement ou à la main en modifiant `data/hosts.yaml`. Chaque h
   location: on-prem    # on-prem | cloud
   access: [ssh, web]
 ```
+
+## Export / import CSV
+
+Le bouton "Export CSV" télécharge tout l'inventaire. Le bouton "Import CSV" remplace l'intégralité
+des hosts par le contenu du fichier importé (utile pour éditer en masse dans un tableur). Colonnes
+attendues : `ip,vlan,name,type,location,access` (les accès sont séparés par `;`).
