@@ -55,7 +55,10 @@ function render(rows) {
       <td class="tag">${h.type === "virtual" ? "Virtuel" : "Physique"}</td>
       <td class="tag">${h.location === "cloud" ? "Cloud" : "On-prem"}</td>
       <td>${h.access.map((a) => `<span class="badge">${a}</span>`).join("")}</td>
-      <td><button class="edit-btn" data-ip="${h.ip}" type="button">✎</button></td>
+      <td>
+        <button class="edit-btn" data-ip="${h.ip}" type="button">✎</button>
+        <button class="delete-btn" data-ip="${h.ip}" type="button">🗑</button>
+      </td>
     </tr>
   `).join("");
   countEl.textContent = `${rows.length} / ${hosts.length} hosts`;
@@ -84,11 +87,27 @@ function openDialog(host) {
 document.getElementById("add-host").addEventListener("click", () => openDialog(null));
 document.getElementById("dialog-cancel").addEventListener("click", () => dialog.close());
 
-tbody.addEventListener("click", (e) => {
-  const btn = e.target.closest(".edit-btn");
-  if (!btn) return;
-  const host = hosts.find((h) => h.ip === btn.dataset.ip);
-  if (host) openDialog(host);
+tbody.addEventListener("click", async (e) => {
+  const editBtn = e.target.closest(".edit-btn");
+  if (editBtn) {
+    const host = hosts.find((h) => h.ip === editBtn.dataset.ip);
+    if (host) openDialog(host);
+    return;
+  }
+
+  const deleteBtn = e.target.closest(".delete-btn");
+  if (deleteBtn) {
+    const ip = deleteBtn.dataset.ip;
+    if (!confirm(`Supprimer le host ${ip} ?`)) return;
+    const res = await fetch(`/api/hosts/${ip}`, { method: "DELETE" });
+    if (!res.ok) {
+      alert("Erreur lors de la suppression.");
+      return;
+    }
+    hosts = hosts.filter((h) => h.ip !== ip);
+    populateAccessFilter();
+    applyFiltersAndSort();
+  }
 });
 
 form.addEventListener("submit", async (e) => {

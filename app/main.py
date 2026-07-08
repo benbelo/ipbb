@@ -80,4 +80,13 @@ def update_host(ip: str, host: Host) -> Host:
     return host
 
 
+@app.delete("/api/hosts/{ip}", status_code=204)
+def delete_host(ip: str) -> None:
+    hosts = read_hosts()
+    remaining = [h for h in hosts if h["ip"] != ip]
+    if len(remaining) == len(hosts):
+        raise HTTPException(404, f"Aucun host avec l'IP {ip}")
+    write_hosts(remaining)
+
+
 app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")
