@@ -24,7 +24,7 @@ Ou avec `docker-compose.yml` (pensez à créer le réseau externe `traefik` si b
 
 ## Éditer l'inventaire
 
-Modifier `data/hosts.yaml`. Chaque host :
+Utiliser l'UI directement ou à la main en modifiant `data/hosts.yaml`. Chaque host :
 
 ```yaml
 - ip: 10.0.0.1
