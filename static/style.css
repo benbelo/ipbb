@@ -59,8 +59,11 @@ input:focus, select:focus {
 
 #search { flex: 1 1 220px; }
 
-.count {
+#export-csv {
   margin-left: auto;
+}
+
+.count {
   color: var(--muted);
   font-size: 0.85rem;
 }
